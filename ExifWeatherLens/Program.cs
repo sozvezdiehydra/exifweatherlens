@@ -6,12 +6,14 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        string filePath = @"E:\petproject\ExifWeatherLens\ExifWeatherLens\Resources\canontest.jpg";
+        string filePath = @"E:\petproject\ExifWeatherLens\ExifWeatherLens\Resources\testgps.jpg";
 
         IExifService exifService = new ExifService();
+        IGeoService geoService = new GeoService();
         IWeatherService weatherService = new WeatherService(new HttpClient());
 
         var metaData = exifService.GetMetadata(filePath);
+
         
         Console.WriteLine($"Photo Info");
         Console.WriteLine($"File: {filePath}");
@@ -20,14 +22,21 @@ class Program
         
         if (metaData.Latitude.HasValue && metaData.Longitude.HasValue)
         {
+            var location = geoService.GetLocation(
+                metaData.Latitude.Value,
+                metaData.Longitude.Value);
+            
             Console.WriteLine($"Coordinates: {metaData.Latitude.Value}, {metaData.Longitude.Value}");
+            Console.WriteLine($"Country: {location.Country}");
+            Console.WriteLine($"Region: {location.Region}");
+            Console.WriteLine($"City: {location.City}");
             
             try 
             {
                 var weather = await weatherService.GetWeatherAsync(
                     metaData.Latitude.Value, 
                     metaData.Longitude.Value,
-                    metaData.DateTime ?? DateTime.Now); 
+                    metaData.DateTime ?? DateTime.Now);
 
                 Console.WriteLine($"Weather lens");
                 Console.WriteLine($"Temperature: {weather.Temperature}°C");

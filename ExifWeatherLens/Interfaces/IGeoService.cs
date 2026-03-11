@@ -1,6 +1,8 @@
-﻿namespace ExifWeatherLens.Interfaces;
+﻿using ExifWeatherLens.Models;
+
+namespace ExifWeatherLens.Interfaces;
 
 public interface IGeoService
 {
-    string GetCity(double latitude, double longitude);
+    GeoInfo GetLocation(double latitude, double longitude);
 }
