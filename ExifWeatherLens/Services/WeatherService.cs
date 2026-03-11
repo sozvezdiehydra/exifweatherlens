@@ -20,7 +20,7 @@ public class WeatherService : IWeatherService
         string lat = latitude.ToString(CultureInfo.InvariantCulture);
         string lon = longitude.ToString(CultureInfo.InvariantCulture);
         
-        string url = $"https://archive-api.open-meteo.com/v1/archive?latitude={lat}&longitude={lon}&start_date={dateToString}&end_date={dateToString}&hourly=temperature_2m,precipitation";
+        string url = $"https://archive-api.open-meteo.com/v1/archive?latitude={lat}&longitude={lon}&start_date={dateToString}&end_date={dateToString}&hourly=temperature_2m,precipitation&timezone=auto";
         
         var response = await _client.GetStringAsync(url);
         var data = JsonSerializer.Deserialize<JsonElement>(response);

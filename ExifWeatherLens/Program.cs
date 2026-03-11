@@ -6,7 +6,7 @@ class Program
 {
     static async Task Main(string[] args)
     {
-        string filePath = @"E:\petproject\ExifWeatherLens\ExifWeatherLens\Resources\testgps.jpg";
+        string filePath = @"E:\petproject\ExifWeatherLens\ExifWeatherLens\Resources\rain.jpg";
 
         IExifService exifService = new ExifService();
         IGeoService geoService = new GeoService();
